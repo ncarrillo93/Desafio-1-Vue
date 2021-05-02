@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;1,200&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/style.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+</head>
+
+<body class="container-fluid min-vh-100">
+    <div class="position-relative">
+        <h1>Mantenedor de Productos</h1>
+        <div id="app" class="position-absolute top-50 start-50 translate-middle">
+            <div class=" d-flex flex-column justify-content-center">
+                <form>
+                    <div class=" d-flex flex-column  mb-2">
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text col-3">Nombre:</span>
+                            <input v-model.lazy="nuevoProducto.nombre" type="text" class="form-control" id="nombre">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text col-3">Descripción</span>
+                            <textarea v-model.lazy="nuevoProducto.descripcion" class="form-control"
+                                id="descripcion"></textarea>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text col-3">Precio</span>
+                            <input v-model.lazy="nuevoProducto.precio" type="text" class="form-control" id="precio">
+                        </div>
+
+                    </div>
+                    <div class="p-4 justify-content-center">
+                        <button type="button" class="btn btn-block btn-primary" @click="agregarProducto()">Añadir
+                            Producto</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">estado</th>
+                        <th scope="col">index</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr> -->
+
+                    <tr v-for="(producto, index) in productos">
+
+                        <template v-if="producto.editar === false">
+                            <td>{{producto.editar}}</td>
+                            <td>{{index}}</td>
+                            <td>{{producto.nombre}}</td>
+                            <td>{{producto.descripcion}}</td>
+                            <td>${{producto.precio}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" @click="cambiarEstado(index)">Editar</button>
+                                <button type="button" class="btn btn-danger"  @click="eliminarProducto(index)">Eliminar</button>
+                            </td>
+                        </template>
+
+                        <template v-else> 
+                            <td>{{producto.editar}}</td>
+                            <td>{{index}}</td>
+                            <td> <input v-model="editarProducto.nombre"      type="text" class="form-control"> </td>
+                            <td> <input v-model="editarProducto.descripcion" type="text" class="form-control"> </td>
+                            <td> <input v-model="editarProducto.precio"      type="text" class="form-control"> </td>
+                            <td>
+                                <button type="button" class="btn btn-secondary" @click="cancelar(index)" >cancelar</button>
+                                <button type="button" class="btn btn-success" @click="actualizarProducto(index)" >confirmar</button>
+                            </td>
+                        </template>
+
+                    </tr>
+                    <!-- <tr> -->
+                </tbody>
+            </table>
+            <div>
+                {{$data.productos}}
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
