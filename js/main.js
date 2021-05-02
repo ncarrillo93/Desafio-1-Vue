@@ -1,6 +1,9 @@
 var app = new Vue({
     el: '#app',
     data: {
+        errorNombre:true,
+        errorDescripcion:true,
+        errorPrecio:true,
         nuevoProducto: {
             nombre: '',
             descripcion: '',
@@ -30,12 +33,34 @@ var app = new Vue({
     },
     methods: {
         agregarProducto() { //ok
-            this.productos.push({
-                nombre: this.nuevoProducto.nombre,
-                descripcion: this.nuevoProducto.descripcion,
-                precio: parseFloat(this.nuevoProducto.precio),
-                editar: false
-            })
+            if(!this.errorNombre && !this.errorDescripcion && !this.errorPrecio){
+                this.productos.push({
+                    nombre: this.nuevoProducto.nombre,
+                    descripcion: this.nuevoProducto.descripcion,
+                    precio: parseFloat(this.nuevoProducto.precio),
+                    editar: false
+                });
+                this.errorNombre = false;
+                this.errorDescripcion = false;
+                this.errorPrecio = false;
+            }else{
+                if(this.nuevoProducto.nombre.length>0){
+                    this.errorNombre=false;
+                }else{
+                    this.errorNombre=true;
+                }
+                if(this.nuevoProducto.descripcion.length>0){
+                    this.errorDescripcion = false;
+                }else{
+                    this.errorDescripcion = true;
+                }
+                if(parseFloat(this.nuevoProducto.precio)>0){
+                    this.errorPrecio = false;
+                }else{
+                    this.errorPrecio = true;
+                }
+            }
+ 
         },
         eliminarProducto(index) { //ok
             this.productos.splice(index, 1);

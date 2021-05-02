@@ -27,17 +27,19 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text col-3">Nombre:</span>
                             <input v-model.lazy="nuevoProducto.nombre" type="text" class="form-control" id="nombre">
+                            <span v-if="errorNombre" class="text-danger p-1">Nombre requerido </span>
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text col-3">Descripción</span>
-                            <textarea v-model.lazy="nuevoProducto.descripcion" class="form-control"
-                                id="descripcion"></textarea>
+                            <textarea v-model.lazy="nuevoProducto.descripcion" class="form-control" id="descripcion"></textarea>
+                            <span v-if="errorDescripcion" class="text-danger p-1">Descripcion Requerida </span>
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text col-3">Precio</span>
-                            <input v-model.lazy="nuevoProducto.precio" type="text" class="form-control" id="precio">
+                            <input v-model.lazy="nuevoProducto.precio" type="number" class="form-control" id="precio">
+                            <span v-if="errorPrecio" class="text-danger p-1">Ingrese precio mayor a 0 </span>
                         </div>
 
                     </div>
@@ -72,7 +74,7 @@
                             <td>{{producto.descripcion}}</td>
                             <td>${{producto.precio}}</td>
                             <td>
-                                <button type="button" class="btn btn-primary" @click="cambiarEstado(index)">Editar</button>
+                                <button type="button " class="btn btn-primary" @click="cambiarEstado(index)">Editar</button>
                                 <button type="button" class="btn btn-danger"  @click="eliminarProducto(index)">Eliminar</button>
                             </td>
                         </template>
@@ -85,7 +87,7 @@
                             <td> <input v-model="editarProducto.precio"      type="text" class="form-control"> </td>
                             <td>
                                 <button type="button" class="btn btn-secondary" @click="cancelar(index)" >cancelar</button>
-                                <button type="button" class="btn btn-success" @click="actualizarProducto(index)" >confirmar</button>
+                                <button type="button" class="btn btn-success" @click="actualizarProducto(index)" >Guardar</button>
                             </td>
                         </template>
 
